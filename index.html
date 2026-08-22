@@ -173,11 +173,48 @@ section{padding:90px 0;}
 .sample-card h4{font-size:1.02rem;margin-bottom:8px;}
 .sample-card p{color:var(--muted);font-size:0.88rem;margin-bottom:14px;}
 .sample-meta{display:flex;gap:8px;flex-wrap:wrap;}
+.sample-preview{
+  display:block;width:100%;margin:18px 0 14px;padding:0;border:1px solid var(--border);
+  border-radius:10px;overflow:hidden;background:var(--surface-2);cursor:zoom-in;
+}
+.sample-preview img{display:block;width:100%;height:220px;object-fit:cover;object-position:top;transition:transform .25s ease;}
+.sample-preview:hover img{transform:scale(1.02);}
+.sample-preview-label{display:block;padding:9px 12px;color:var(--blue-soft);font-family:'JetBrains Mono',monospace;font-size:0.7rem;text-align:left;}
 .chip{
   font-family:'JetBrains Mono',monospace;font-size:0.68rem;color:var(--muted);
   border:1px solid var(--border);padding:4px 9px;border-radius:6px;
 }
 .hidden{display:none;}
+
+/* ---------- REPORTS & ANALYTICS ---------- */
+.report-card{
+  background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);
+  padding:28px;
+}
+.report-card h3{font-size:1.1rem;margin-bottom:24px;}
+.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;}
+.stat-block{
+  background:var(--surface-2);border:1px solid var(--border);border-radius:10px;
+  padding:18px;
+}
+.stat-value{font-family:'Space Grotesk',sans-serif;font-size:2rem;font-weight:700;line-height:1;color:var(--blue-soft);}
+.stat-label{display:block;color:var(--muted);font-size:0.78rem;margin-top:8px;}
+.report-insight{color:var(--muted);font-size:0.9rem;margin-top:22px;}
+.report-insight strong{color:var(--teal);font-family:'JetBrains Mono',monospace;font-size:0.75rem;font-weight:500;margin-right:6px;}
+.evidence-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;margin-top:20px;}
+.evidence-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;}
+.evidence-preview{display:block;width:100%;padding:0;border:0;background:none;cursor:zoom-in;}
+.evidence-card img{display:block;width:100%;height:auto;aspect-ratio:16/9;object-fit:cover;object-position:top;}
+.evidence-caption{padding:16px;color:var(--muted);font-size:0.84rem;}
+.evidence-caption strong{display:block;color:var(--text);font-family:'Space Grotesk',sans-serif;font-size:0.95rem;margin-bottom:3px;}
+
+/* ---------- CONTENT REPURPOSING ---------- */
+.repurposing-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;}
+.repurposing-card{
+  background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);
+  padding:24px;
+}
+.repurposing-card p{color:var(--muted);font-size:0.9rem;}
 
 /* ---------- TESTIMONIALS ---------- */
 .testimonial-grid{display:grid;grid-template-columns:minmax(0,560px);justify-content:center;gap:20px;}
@@ -237,6 +274,11 @@ section{padding:90px 0;}
 .template-card h4{font-size:0.98rem;margin-bottom:6px;}
 .template-card p{color:var(--muted);font-size:0.85rem;}
 
+/* image preview */
+.image-modal{max-width:min(92vw,720px);padding:12px;background:var(--surface-2);}
+.image-modal img{display:block;width:100%;max-height:78vh;object-fit:contain;border-radius:8px;}
+.image-modal .modal-close{background:var(--surface);border:1px solid var(--border);border-radius:50%;width:34px;height:34px;z-index:1;}
+
 /* ---------- CONTACT / FOOTER ---------- */
 .contact{
   background:var(--surface);border:1px solid var(--border);border-radius:20px;
@@ -253,6 +295,8 @@ footer{padding:32px 0;text-align:center;color:var(--muted);font-size:0.82rem;bor
   .samples-grid{grid-template-columns:1fr;}
   .testimonial-grid{grid-template-columns:1fr;}
   .templates-grid{grid-template-columns:1fr 1fr;}
+  .stats-grid{grid-template-columns:repeat(2,1fr);}
+  .repurposing-grid{grid-template-columns:repeat(2,1fr);}
 }
 @media (max-width:640px){
   .container{width:min(100% - 32px, 1140px);}
@@ -278,10 +322,14 @@ footer{padding:32px 0;text-align:center;color:var(--muted);font-size:0.82rem;bor
   .section-head{margin-bottom:32px;}
   .section-head p{font-size:.95rem;}
   .service-card,.sample-card{padding:22px;}
+  .sample-preview img{height:auto;max-height:360px;}
+  .report-card,.repurposing-card{padding:22px;}
+  .evidence-grid{grid-template-columns:1fr;}
   .filter-bar{flex-wrap:nowrap;overflow-x:auto;margin-right:-16px;padding:2px 16px 8px 2px;scrollbar-width:thin;}
   .filter-btn{white-space:nowrap;flex:0 0 auto;}
   .services-grid{grid-template-columns:1fr;}
   .templates-grid{grid-template-columns:1fr;}
+  .stats-grid,.repurposing-grid{grid-template-columns:1fr;}
   .contact{padding:36px 20px;border-radius:16px;}
   .contact .btn-primary{width:100%;justify-content:center;overflow-wrap:anywhere;}
   .modal-overlay{padding:16px;align-items:flex-end;}
@@ -302,6 +350,8 @@ footer{padding:32px 0;text-align:center;color:var(--muted);font-size:0.82rem;bor
     <div class="nav-links" id="navLinks">
       <a href="#services">Services</a>
       <a href="#work">Work</a>
+      <a href="#reports">Reports</a>
+      <a href="#repurposing">Repurposing</a>
       <a href="#testimonials">Testimonials</a>
       <a href="#templates">Templates</a>
       <a href="#contact">Contact</a>
@@ -398,6 +448,10 @@ footer{padding:32px 0;text-align:center;color:var(--muted);font-size:0.82rem;bor
       <span class="cat mono">Social Media</span>
       <h4>Instagram Post & Caption Design</h4>
       <p>Designed a branded post and caption for a business coach, then repurposed it into LinkedIn, Facebook, and Reel formats.</p>
+      <button class="sample-preview" type="button" data-image="Instagram-post-sarah-james.png" data-alt="Instagram post for Sarah James Coaching that reads: Start your day with a plan" aria-label="View full Instagram post for Sarah James Coaching">
+        <img src="Instagram-post-sarah-james.png" alt="Instagram post for Sarah James Coaching that reads: Start your day with a plan">
+        <span class="sample-preview-label">↗ TAP TO VIEW FULL IMAGE</span>
+      </button>
       <div class="sample-meta"><span class="chip">Canva</span><span class="chip">Copywriting</span></div>
     </div>
     <div class="sample-card" data-cat="content">
@@ -423,6 +477,64 @@ footer{padding:32px 0;text-align:center;color:var(--muted);font-size:0.82rem;bor
       <h4>One-Page Client Itinerary</h4>
       <p>Turned raw trip research into a clean, one-page itinerary covering flights, hotel, transport, and reminders.</p>
       <div class="sample-meta"><span class="chip">Client Documentation</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="reports" class="container">
+  <div class="section-head">
+    <div class="section-eyebrow">// REPORTS &amp; ANALYTICS</div>
+    <h2>Results, not just activity</h2>
+    <p>A sample weekly engagement report showing measurable impact.</p>
+  </div>
+  <div class="report-card">
+    <h3>Instagram Engagement Report — Chika's Cakes, Aug 2026</h3>
+    <div class="stats-grid">
+      <div class="stat-block"><div class="stat-value">4</div><span class="stat-label">Posts Scheduled</span></div>
+      <div class="stat-block"><div class="stat-value">26</div><span class="stat-label">DMs Answered</span></div>
+      <div class="stat-block"><div class="stat-value">512</div><span class="stat-label">Top Post Likes</span></div>
+      <div class="stat-block"><div class="stat-value">38</div><span class="stat-label">Top Post Comments</span></div>
+    </div>
+    <p class="report-insight"><strong>INSIGHT //</strong> Reel-format content outperformed static photo posts this week.</p>
+  </div>
+  <div class="evidence-grid">
+    <figure class="evidence-card">
+      <button class="evidence-preview" type="button" data-image="before-inbox.png" data-alt="Gmail inbox before organization, showing an unstructured inbox view" aria-label="View full before inbox image">
+        <img src="before-inbox.png" alt="Gmail inbox before organization, showing an unstructured inbox view">
+      </button>
+      <figcaption class="evidence-caption"><strong>Before</strong>Inbox before organization.</figcaption>
+    </figure>
+    <figure class="evidence-card">
+      <button class="evidence-preview" type="button" data-image="after-inbox.png" data-alt="Gmail inbox after organization, showing labels for client queries, coaching bookings, and pending tasks" aria-label="View full after inbox image">
+        <img src="after-inbox.png" alt="Gmail inbox after organization, showing labels for client queries, coaching bookings, and pending tasks">
+      </button>
+      <figcaption class="evidence-caption"><strong>After</strong>Inbox organized with a clear label system.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<section id="repurposing" class="container">
+  <div class="section-head">
+    <div class="section-eyebrow">// VERSATILITY</div>
+    <h2>One post, four platforms</h2>
+    <p>The same core message, adapted for how each platform's audience actually reads.</p>
+  </div>
+  <div class="repurposing-grid">
+    <div class="repurposing-card">
+      <span class="cat mono">Instagram</span>
+      <p>New week, new focus. Before you open your inbox, take a moment to set your top priority for today. Small, intentional steps are what separate busy from productive. What's the one thing you're getting done today?</p>
+    </div>
+    <div class="repurposing-card">
+      <span class="cat mono">LinkedIn</span>
+      <p>Monday reset: before diving into your inbox, take two minutes to name your single most important task for the day. Small acts of intention compound into real productivity over a week. What's topping your list today?</p>
+    </div>
+    <div class="repurposing-card">
+      <span class="cat mono">Facebook</span>
+      <p>Happy Monday! Quick tip before you start your day: pick ONE priority task before checking email. Drop yours in the comments, let's keep each other accountable this week.</p>
+    </div>
+    <div class="repurposing-card">
+      <span class="cat mono">Reel/TikTok Script</span>
+      <p>Hook: 'Stop opening your inbox first thing Monday morning.' Body: Show writing down one priority task on a sticky note before opening a laptop. CTA: 'Comment your #1 priority for this week.'</p>
     </div>
   </div>
 </section>
@@ -477,11 +589,18 @@ footer{padding:32px 0;text-align:center;color:var(--muted);font-size:0.82rem;bor
   </div>
 </div>
 
+<div class="modal-overlay" id="imageOverlay" role="dialog" aria-modal="true" aria-label="Image preview">
+  <div class="modal image-modal">
+    <button class="modal-close" id="imageClose" aria-label="Close image preview">&times;</button>
+    <img id="previewImage" src="" alt="">
+  </div>
+</div>
+
 <section id="contact" class="container">
   <div class="contact">
     <h2>Let's simplify your week.</h2>
     <p>If you're juggling admin, content, and finances on your own, I can take it off your plate, starting this week.</p>
-    <a href="#" class="btn-primary" id="contactMailLink">promaxsky001@gmail.com →</a>
+    <a href="#" class="btn-primary" id="contactMailLink">promiseajacob@gmail.com →</a>
   </div>
 </section>
 
@@ -495,7 +614,7 @@ const gmailSubject = encodeURIComponent("Let's work together");
 const gmailBody = encodeURIComponent(
 "Hi Promise,\n\nI came across your portfolio and I'm interested in working with you as my Virtual Assistant.\n\nHere's a bit about what I need help with:\n- \n- \n\nLooking forward to hearing from you.\n\nBest,\n"
 );
-const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=promaxsky001@gmail.com&su=${gmailSubject}&body=${gmailBody}`;
+const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=promiseajacob@gmail.com&su=${gmailSubject}&body=${gmailBody}`;
 document.getElementById('navMailLink').href = gmailUrl;
 document.getElementById('navMailLink').target = '_blank';
 document.getElementById('contactMailLink').href = gmailUrl;
@@ -565,7 +684,27 @@ document.querySelectorAll('.template-card').forEach(card => {
 });
 document.getElementById('modalClose').addEventListener('click', () => modalOverlay.classList.remove('open'));
 modalOverlay.addEventListener('click', (e) => { if(e.target === modalOverlay) modalOverlay.classList.remove('open'); });
-document.addEventListener('keydown', (e) => { if(e.key === 'Escape') modalOverlay.classList.remove('open'); });
+
+// image preview
+const imageOverlay = document.getElementById('imageOverlay');
+const previewImage = document.getElementById('previewImage');
+const imageClose = document.getElementById('imageClose');
+document.querySelectorAll('.sample-preview, .evidence-preview').forEach(preview => {
+  preview.addEventListener('click', () => {
+    previewImage.src = preview.dataset.image;
+    previewImage.alt = preview.dataset.alt;
+    imageOverlay.classList.add('open');
+    imageClose.focus();
+  });
+});
+imageClose.addEventListener('click', () => imageOverlay.classList.remove('open'));
+imageOverlay.addEventListener('click', (e) => { if(e.target === imageOverlay) imageOverlay.classList.remove('open'); });
+document.addEventListener('keydown', (e) => {
+  if(e.key === 'Escape') {
+    modalOverlay.classList.remove('open');
+    imageOverlay.classList.remove('open');
+  }
+});
 
 // mobile nav toggle
 const navToggle = document.getElementById('navToggle');
