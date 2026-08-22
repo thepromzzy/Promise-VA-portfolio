@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Promise Ayodeji Jacob — Virtual Assistant</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0B1120;
+  --surface:#111A2E;
+  --surface-2:#0F1728;
+  --border:#1E2A44;
+  --text:#E7ECF5;
+  --muted:#8B96AC;
+  --blue:#2F6FED;
+  --blue-soft:#8FB0FF;
+  --teal:#22D3EE;
+  --radius:14px;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;scroll-padding-top:82px;}
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:'Inter',sans-serif;
+  line-height:1.6;
+  overflow-x:clip;
+}
+.mono{font-family:'JetBrains Mono',monospace;}
+h1,h2,h3,h4{font-family:'Space Grotesk',sans-serif;font-weight:600;letter-spacing:-0.01em;}
+a{color:inherit;text-decoration:none;}
+.container{width:min(100% - 48px, 1140px);margin:0 auto;}
+::selection{background:var(--blue);color:#fff;}
+
+/* background texture */
+body::before{
+  content:"";
+  position:fixed;inset:0;
+  background:
+    radial-gradient(circle at 15% 10%, rgba(47,111,237,0.16), transparent 45%),
+    radial-gradient(circle at 85% 30%, rgba(34,211,238,0.10), transparent 40%);
+  z-index:-1;
+  pointer-events:none;
+}
+
+/* ---------- NAV ---------- */
+header{
+  position:sticky;top:0;z-index:50;
+  background:rgba(11,17,32,0.85);
+  backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--border);
+}
+nav{
+  display:flex;align-items:center;justify-content:space-between;
+  width:min(100% - 48px, 1140px);padding:18px 0;margin:0 auto;
+}
+.logo{
+  font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:1.05rem;
+  display:flex;align-items:center;gap:8px;
+}
+.logo-mark{
+  width:10px;height:10px;border-radius:3px;background:var(--blue);
+  box-shadow:0 0 12px var(--blue);
+}
+.nav-links{display:flex;gap:32px;font-size:0.92rem;color:var(--muted);}
+.nav-links a{transition:color .2s;}
+.nav-links a:hover{color:var(--text);}
+.nav-cta{
+  font-family:'JetBrains Mono',monospace;font-size:0.82rem;
+  padding:9px 16px;border:1px solid var(--blue);border-radius:8px;
+  color:var(--blue-soft);transition:all .2s;
+}
+.nav-cta:hover{background:var(--blue);color:#fff;}
+.nav-toggle{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;}
+.nav-toggle span{width:22px;height:2px;background:var(--text);display:block;}
+button,a{-webkit-tap-highlight-color:transparent;}
+a:focus-visible,button:focus-visible{outline:3px solid var(--teal);outline-offset:4px;}
+
+/* ---------- HERO ---------- */
+.hero{
+  padding:100px 0 80px;
+  display:grid;grid-template-columns:1.05fr 0.95fr;gap:56px;align-items:center;
+}
+.eyebrow{
+  font-family:'JetBrains Mono',monospace;font-size:0.8rem;color:var(--teal);
+  display:flex;align-items:center;gap:8px;margin-bottom:20px;
+}
+.eyebrow::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--teal);box-shadow:0 0 8px var(--teal);}
+.hero h1{font-size:clamp(2.2rem,4.2vw,3.4rem);line-height:1.08;margin-bottom:20px;}
+.hero h1 .accent{color:var(--blue-soft);}
+.hero p.lead{color:var(--muted);font-size:1.08rem;max-width:480px;margin-bottom:32px;}
+.hero-actions{display:flex;gap:14px;flex-wrap:wrap;}
+.btn-primary{
+  background:var(--blue);color:#fff;padding:13px 24px;border-radius:9px;
+  font-weight:500;font-size:0.95rem;display:inline-flex;align-items:center;gap:8px;
+  transition:transform .2s, box-shadow .2s;
+}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 10px 24px rgba(47,111,237,0.35);}
+.btn-secondary{
+  border:1px solid var(--border);padding:13px 24px;border-radius:9px;
+  font-weight:500;font-size:0.95rem;color:var(--text);transition:border-color .2s;
+}
+.btn-secondary:hover{border-color:var(--blue-soft);}
+
+/* terminal signature element */
+.terminal{
+  background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);
+  overflow:hidden;box-shadow:0 30px 60px -20px rgba(0,0,0,0.6);
+}
+.terminal-bar{
+  display:flex;align-items:center;gap:8px;padding:12px 16px;
+  border-bottom:1px solid var(--border);background:var(--surface-2);
+}
+.dot{width:10px;height:10px;border-radius:50%;}
+.dot.red{background:#FF5F57;}
+.dot.yellow{background:#FEBC2E;}
+.dot.green{background:#28C840;}
+.terminal-title{
+  margin-left:auto;margin-right:auto;transform:translateX(-18px);
+  font-family:'JetBrains Mono',monospace;font-size:0.75rem;color:var(--muted);
+}
+.terminal-body{
+  padding:22px 20px;font-family:'JetBrains Mono',monospace;font-size:0.86rem;
+  min-height:260px;color:var(--blue-soft);overflow-wrap:anywhere;
+}
+.terminal-body .line{margin-bottom:10px;color:var(--muted);}
+.terminal-body .line .prompt{color:var(--teal);margin-right:8px;}
+.terminal-body .line .done{color:#4ADE80;}
+.cursor{display:inline-block;width:7px;height:14px;background:var(--teal);animation:blink 1s steps(1) infinite;vertical-align:middle;}
+@keyframes blink{50%{opacity:0;}}
+
+/* ---------- SECTION HEADS ---------- */
+section{padding:90px 0;}
+.section-head{margin-bottom:48px;max-width:640px;}
+.section-eyebrow{font-family:'JetBrains Mono',monospace;font-size:0.78rem;color:var(--blue-soft);margin-bottom:12px;}
+.section-head h2{font-size:clamp(1.7rem,3vw,2.3rem);}
+.section-head p{color:var(--muted);margin-top:12px;}
+
+/* ---------- SERVICES ---------- */
+.services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+.service-card{
+  background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);
+  padding:26px;transition:border-color .2s, transform .2s;
+}
+.service-card:hover{border-color:var(--blue);transform:translateY(-4px);}
+.service-tag{
+  font-family:'JetBrains Mono',monospace;font-size:0.72rem;color:var(--teal);
+  display:inline-block;margin-bottom:14px;
+}
+.service-card h3{font-size:1.05rem;margin-bottom:8px;}
+.service-card p{color:var(--muted);font-size:0.9rem;}
+
+/* ---------- WORK SAMPLES ---------- */
+.filter-bar{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:32px;}
+.filter-btn{
+  font-family:'JetBrains Mono',monospace;font-size:0.78rem;
+  padding:8px 14px;border-radius:20px;border:1px solid var(--border);
+  color:var(--muted);cursor:pointer;background:none;transition:all .2s;
+}
+.filter-btn:hover{color:var(--text);}
+.filter-btn.active{background:var(--blue);border-color:var(--blue);color:#fff;}
+.samples-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;}
+.sample-card{
+  background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);
+  padding:24px;transition:opacity .3s, transform .3s;
+}
+.sample-card .cat{
+  font-family:'JetBrains Mono',monospace;font-size:0.7rem;color:var(--blue-soft);
+  text-transform:uppercase;letter-spacing:0.04em;margin-bottom:10px;display:block;
+}
+.sample-card h4{font-size:1.02rem;margin-bottom:8px;}
+.sample-card p{color:var(--muted);font-size:0.88rem;margin-bottom:14px;}
+.sample-meta{display:flex;gap:8px;flex-wrap:wrap;}
+.chip{
+  font-family:'JetBrains Mono',monospace;font-size:0.68rem;color:var(--muted);
+  border:1px solid var(--border);padding:4px 9px;border-radius:6px;
+}
+.hidden{display:none;}
+
+/* ---------- TESTIMONIALS ---------- */
+.testimonial-grid{display:grid;grid-template-columns:minmax(0,560px);justify-content:center;gap:20px;}
+.testimonial-card{
+  background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);
+  padding:28px;position:relative;
+}
+.testimonial-card::before{
+  content:"\201C";font-family:'Space Grotesk',sans-serif;font-size:3rem;color:var(--blue);
+  opacity:0.35;position:absolute;top:10px;left:18px;line-height:1;
+}
+.testimonial-card p.quote{font-size:0.96rem;margin:20px 0 18px;color:var(--text);}
+.testimonial-who{display:flex;align-items:center;gap:12px;}
+.avatar{
+  width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,var(--blue),var(--teal));
+  display:flex;align-items:center;justify-content:center;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:0.9rem;color:#0B1120;
+}
+.who-name{font-size:0.88rem;font-weight:600;}
+.who-role{font-size:0.78rem;color:var(--muted);}
+
+/* ---------- TEMPLATES ---------- */
+.templates-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+.template-card{
+  background:var(--surface-2);border:1px dashed var(--border);border-radius:var(--radius);
+  padding:24px;text-align:left;width:100%;cursor:pointer;font-family:inherit;color:inherit;
+  transition:border-color .2s, transform .2s;
+}
+.template-card:hover{border-color:var(--blue-soft);border-style:solid;transform:translateY(-3px);}
+
+/* modal */
+.modal-overlay{
+  position:fixed;inset:0;background:rgba(6,10,20,0.7);backdrop-filter:blur(4px);
+  display:none;align-items:center;justify-content:center;z-index:100;padding:20px;
+}
+.modal-overlay.open{display:flex;}
+.modal{
+  background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);
+  max-width:560px;width:100%;max-height:80vh;overflow-y:auto;padding:32px;position:relative;
+  box-shadow:0 40px 80px -20px rgba(0,0,0,0.6);
+}
+.modal-close{
+  position:absolute;top:16px;right:16px;background:none;border:none;color:var(--muted);
+  font-size:1.6rem;cursor:pointer;line-height:1;
+}
+.modal-close:hover{color:var(--text);}
+.modal-eyebrow{font-size:0.75rem;color:var(--blue-soft);margin-bottom:8px;}
+.modal h3{font-size:1.3rem;margin-bottom:16px;}
+.modal-body{color:var(--muted);font-size:0.92rem;}
+.modal-body h5{color:var(--text);font-family:'JetBrains Mono',monospace;font-size:0.8rem;margin:16px 0 6px;}
+.modal-body h5:first-child{margin-top:0;}
+.modal-body p{margin-bottom:4px;}
+.template-icon{
+  width:36px;height:36px;border-radius:8px;background:rgba(47,111,237,0.15);
+  display:flex;align-items:center;justify-content:center;margin-bottom:14px;
+  color:var(--blue-soft);font-family:'JetBrains Mono',monospace;font-size:0.8rem;
+}
+.template-card h4{font-size:0.98rem;margin-bottom:6px;}
+.template-card p{color:var(--muted);font-size:0.85rem;}
+
+/* ---------- CONTACT / FOOTER ---------- */
+.contact{
+  background:var(--surface);border:1px solid var(--border);border-radius:20px;
+  padding:56px 40px;text-align:center;
+}
+.contact h2{font-size:clamp(1.6rem,3vw,2.2rem);margin-bottom:14px;}
+.contact p{color:var(--muted);max-width:480px;margin:0 auto 28px;}
+footer{padding:32px 0;text-align:center;color:var(--muted);font-size:0.82rem;border-top:1px solid var(--border);}
+
+/* ---------- RESPONSIVE ---------- */
+@media (max-width:900px){
+  .hero{grid-template-columns:1fr;padding-top:60px;}
+  .services-grid{grid-template-columns:repeat(2,1fr);}
+  .samples-grid{grid-template-columns:1fr;}
+  .testimonial-grid{grid-template-columns:1fr;}
+  .templates-grid{grid-template-columns:1fr 1fr;}
+}
+@media (max-width:640px){
+  .container{width:min(100% - 32px, 1140px);}
+  nav{width:min(100% - 32px, 1140px);padding:15px 0;}
+  .logo{font-size:0.95rem;}
+  .nav-links{
+    position:fixed;top:62px;left:16px;right:16px;
+    background:rgba(15,23,40,.98);border:1px solid var(--border);border-radius:12px;
+    box-shadow:0 18px 32px rgba(0,0,0,.25);
+    flex-direction:column;padding:18px;gap:14px;
+    transform:translateY(-140%);opacity:0;pointer-events:none;transition:transform .25s ease,opacity .2s ease;
+  }
+  .nav-links.open{transform:translateY(0);opacity:1;pointer-events:auto;}
+  .nav-toggle{display:flex;}
+  .nav-cta{display:none;}
+  .hero{padding:48px 0 52px;gap:36px;}
+  .hero h1{font-size:clamp(2.15rem,11vw,2.7rem);}
+  .hero p.lead{font-size:1rem;}
+  .hero-actions{display:grid;grid-template-columns:1fr;gap:10px;}
+  .hero-actions a{justify-content:center;text-align:center;}
+  .terminal-body{min-height:220px;padding:18px 16px;font-size:clamp(.69rem,3.35vw,.82rem);}
+  .terminal-title{font-size:.65rem;}
+  .section-head{margin-bottom:32px;}
+  .section-head p{font-size:.95rem;}
+  .service-card,.sample-card{padding:22px;}
+  .filter-bar{flex-wrap:nowrap;overflow-x:auto;margin-right:-16px;padding:2px 16px 8px 2px;scrollbar-width:thin;}
+  .filter-btn{white-space:nowrap;flex:0 0 auto;}
+  .services-grid{grid-template-columns:1fr;}
+  .templates-grid{grid-template-columns:1fr;}
+  .contact{padding:36px 20px;border-radius:16px;}
+  .contact .btn-primary{width:100%;justify-content:center;overflow-wrap:anywhere;}
+  .modal-overlay{padding:16px;align-items:flex-end;}
+  .modal{max-height:82vh;padding:28px 20px;border-radius:16px;}
+  section{padding:60px 0;}
+}
+@media (max-width:380px){
+  .container,nav{width:min(100% - 24px, 1140px);}
+  .hero h1{font-size:2rem;}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <nav>
+    <div class="logo"><span class="logo-mark"></span>Promise&nbsp;Jacob</div>
+    <div class="nav-links" id="navLinks">
+      <a href="#services">Services</a>
+      <a href="#work">Work</a>
+      <a href="#testimonials">Testimonials</a>
+      <a href="#templates">Templates</a>
+      <a href="#contact">Contact</a>
+    </div>
+    <a href="#" class="nav-cta" id="navMailLink">Start a project →</a>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="navLinks"><span></span><span></span><span></span></button>
+  </nav>
+</header>
+
+<section class="hero container">
+  <div>
+    <div class="eyebrow">AVAILABLE FOR NEW CLIENTS</div>
+    <h1>I keep your business running while you focus on <span class="accent">growth</span>.</h1>
+    <p class="lead">I'm Promise, a Virtual Assistant with a frontend development background, based in Lagos, Nigeria. I handle the inbox, the calendar, the invoices, and the content, so nothing falls through the cracks.</p>
+    <div class="hero-actions">
+      <a href="#work" class="btn-primary">View my work →</a>
+      <a href="#contact" class="btn-secondary">Get in touch</a>
+    </div>
+  </div>
+
+  <div class="terminal">
+    <div class="terminal-bar">
+      <span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span>
+      <span class="terminal-title">weekly_tasks.sh</span>
+    </div>
+    <div class="terminal-body" id="terminalBody"></div>
+  </div>
+</section>
+
+<section id="services" class="container">
+  <div class="section-head">
+    <div class="section-eyebrow">// SERVICES</div>
+    <h2>What I offer</h2>
+    <p>Five core services, each backed by a real work sample below.</p>
+  </div>
+  <div class="services-grid">
+    <div class="service-card">
+      <span class="service-tag mono">01 · admin</span>
+      <h3>Email & Calendar Management</h3>
+      <p>Inbox cleanup, folder systems, and scheduling that never double-books you.</p>
+    </div>
+    <div class="service-card">
+      <span class="service-tag mono">02 · content</span>
+      <h3>Social Media Support</h3>
+      <p>Captions, graphics, and scheduling that sound like your brand, not a template.</p>
+    </div>
+    <div class="service-card">
+      <span class="service-tag mono">03 · research</span>
+      <h3>Research & Documentation</h3>
+      <p>Comparative research and clear reports, so decisions take minutes, not days.</p>
+    </div>
+    <div class="service-card">
+      <span class="service-tag mono">04 · finance</span>
+      <h3>Bookkeeping & Invoicing</h3>
+      <p>Clean records, on-time invoices, and a running balance you can always trust.</p>
+    </div>
+    <div class="service-card">
+      <span class="service-tag mono">05 · ops</span>
+      <h3>Travel & Operational Planning</h3>
+      <p>Itineraries and logistics handled end-to-end, so you just show up.</p>
+    </div>
+    <div class="service-card">
+      <span class="service-tag mono">06 · systems</span>
+      <h3>Workflow Automation</h3>
+      <p>Zapier and form-based automations that remove repetitive manual work.</p>
+    </div>
+  </div>
+</section>
+
+<section id="work" class="container">
+  <div class="section-head">
+    <div class="section-eyebrow">// WORK SAMPLES</div>
+    <h2>Recent work</h2>
+    <p>Filter by category to see how each service shows up in practice.</p>
+  </div>
+
+  <div class="filter-bar" id="filterBar">
+    <button class="filter-btn active" data-filter="all">All</button>
+    <button class="filter-btn" data-filter="admin">Email & Calendar</button>
+    <button class="filter-btn" data-filter="content">Social Media</button>
+    <button class="filter-btn" data-filter="research">Research</button>
+    <button class="filter-btn" data-filter="finance">Bookkeeping & Invoicing</button>
+    <button class="filter-btn" data-filter="ops">Travel Planning</button>
+  </div>
+
+  <div class="samples-grid" id="samplesGrid">
+    <div class="sample-card" data-cat="admin">
+      <span class="cat mono">Email & Calendar</span>
+      <h4>Client Inbox Organization</h4>
+      <p>Sorted a cluttered inbox into Client Queries, Coaching Bookings, and Pending Tasks, then scheduled two coaching calls with reminders.</p>
+      <div class="sample-meta"><span class="chip">Gmail</span><span class="chip">Google Calendar</span></div>
+    </div>
+    <div class="sample-card" data-cat="content">
+      <span class="cat mono">Social Media</span>
+      <h4>Instagram Post & Caption Design</h4>
+      <p>Designed a branded post and caption for a business coach, then repurposed it into LinkedIn, Facebook, and Reel formats.</p>
+      <div class="sample-meta"><span class="chip">Canva</span><span class="chip">Copywriting</span></div>
+    </div>
+    <div class="sample-card" data-cat="content">
+      <span class="cat mono">Social Media</span>
+      <h4>Weekly Operations Report</h4>
+      <p>Compiled a client-ready report on tasks completed, top-performing content, and next steps for a bakery brand.</p>
+      <div class="sample-meta"><span class="chip">Reporting</span></div>
+    </div>
+    <div class="sample-card" data-cat="research">
+      <span class="cat mono">Research</span>
+      <h4>Travel Options Comparison</h4>
+      <p>Sourced and compared 3 flight, hotel, and transport packages for a 3-day trip using real, current pricing.</p>
+      <div class="sample-meta"><span class="chip">Google Sheets</span></div>
+    </div>
+    <div class="sample-card" data-cat="finance">
+      <span class="cat mono">Bookkeeping & Invoicing</span>
+      <h4>Client CRM + Invoice + Bookkeeping</h4>
+      <p>Built a client tracker, issued a professional invoice, and logged income and expenses with a running balance.</p>
+      <div class="sample-meta"><span class="chip">Google Sheets</span><span class="chip">Invoicing</span></div>
+    </div>
+    <div class="sample-card" data-cat="ops">
+      <span class="cat mono">Travel Planning</span>
+      <h4>One-Page Client Itinerary</h4>
+      <p>Turned raw trip research into a clean, one-page itinerary covering flights, hotel, transport, and reminders.</p>
+      <div class="sample-meta"><span class="chip">Client Documentation</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="testimonials" class="container">
+  <div class="section-head">
+    <div class="section-eyebrow">// TESTIMONIALS</div>
+    <h2>What people say</h2>
+  </div>
+  <div class="testimonial-grid">
+    <div class="testimonial-card">
+      <p class="quote">"Promise took over my content scheduling and captions when I was overwhelmed juggling everything myself, and it made a real difference. My posts started going out consistently, and he always got the tone right for my audience."</p>
+      <div class="testimonial-who">
+        <div class="avatar">A</div>
+        <div><div class="who-name">Abigail</div><div class="who-role">Content Creator</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="templates" class="container">
+  <div class="section-head">
+    <div class="section-eyebrow">// TEMPLATES & READINESS</div>
+    <h2>Ready-to-use documents</h2>
+    <p>Standard templates used to keep every engagement professional from day one.</p>
+  </div>
+  <div class="templates-grid">
+    <button class="template-card" data-template="tos">
+      <div class="template-icon">TOS</div>
+      <h4>Terms of Service</h4>
+      <p>Deliverables, payment terms, revisions, and cancellation policy, laid out clearly upfront.</p>
+    </button>
+    <button class="template-card" data-template="inv">
+      <div class="template-icon">INV</div>
+      <h4>Sample Invoice</h4>
+      <p>Clean, itemized invoice format with payment details and due dates.</p>
+    </button>
+    <button class="template-card" data-template="sla">
+      <div class="template-icon">SLA</div>
+      <h4>Service Contract</h4>
+      <p>A simple agreement covering scope, payment, duration, and confidentiality.</p>
+    </button>
+  </div>
+</section>
+
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal">
+    <button class="modal-close" id="modalClose" aria-label="Close">&times;</button>
+    <div class="modal-eyebrow mono" id="modalEyebrow"></div>
+    <h3 id="modalTitle"></h3>
+    <div class="modal-body" id="modalBody"></div>
+  </div>
+</div>
+
+<section id="contact" class="container">
+  <div class="contact">
+    <h2>Let's simplify your week.</h2>
+    <p>If you're juggling admin, content, and finances on your own, I can take it off your plate, starting this week.</p>
+    <a href="#" class="btn-primary" id="contactMailLink">promaxsky001@gmail.com →</a>
+  </div>
+</section>
+
+<footer class="container">
+  <p>Promise Ayodeji Jacob — Virtual Assistant &amp; Frontend Developer, Lagos, Nigeria</p>
+</footer>
+
+<script>
+// gmail compose links with a pre-drafted message
+const gmailSubject = encodeURIComponent("Let's work together");
+const gmailBody = encodeURIComponent(
+"Hi Promise,\n\nI came across your portfolio and I'm interested in working with you as my Virtual Assistant.\n\nHere's a bit about what I need help with:\n- \n- \n\nLooking forward to hearing from you.\n\nBest,\n"
+);
+const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=promaxsky001@gmail.com&su=${gmailSubject}&body=${gmailBody}`;
+document.getElementById('navMailLink').href = gmailUrl;
+document.getElementById('navMailLink').target = '_blank';
+document.getElementById('contactMailLink').href = gmailUrl;
+document.getElementById('contactMailLink').target = '_blank';
+
+// template modal content
+const templateContent = {
+  tos: {
+    eyebrow: "TERMS OF SERVICE",
+    title: "Terms of Service",
+    html: `
+      <h5>DELIVERABLES</h5>
+      <p>Weekly deliverables include an organized inbox, updated calendar, scheduled social media content, and a bookkeeping/invoicing summary, as applicable to the agreed scope of work.</p>
+      <h5>PAYMENT TERMS</h5>
+      <p>Invoices are issued at the end of each work week and payment is due within 5 business days via bank transfer. Late payments beyond 7 days may pause ongoing work until settled.</p>
+      <h5>REVISIONS</h5>
+      <p>Minor revisions to deliverables (e.g. edits to a report or social post) are included within 48 hours of delivery.</p>
+      <h5>CANCELLATION</h5>
+      <p>Either party may end the working relationship with 7 days written notice.</p>
+    `
+  },
+  inv: {
+    eyebrow: "SAMPLE INVOICE",
+    title: "Invoice #002",
+    html: `
+      <h5>FROM</h5>
+      <p>Promise Ayodeji Jacob — Virtual Assistant & Frontend Developer, Lagos, Nigeria</p>
+      <h5>TO</h5>
+      <p>Abigail — Content Creator</p>
+      <h5>DATE ISSUED / DUE DATE</h5>
+      <p>August 22, 2026 / August 29, 2026</p>
+      <h5>DESCRIPTION</h5>
+      <p>Social Media Management (Monthly): content scheduling, caption writing, and post design for August 2026</p>
+      <h5>TOTAL DUE</h5>
+      <p>Rate agreed per project scope, payable via bank transfer</p>
+    `
+  },
+  sla: {
+    eyebrow: "SERVICE CONTRACT",
+    title: "Virtual Assistant Service Agreement",
+    html: `
+      <h5>SCOPE OF WORK</h5>
+      <p>The Virtual Assistant will provide email management, calendar scheduling, social media support, and bookkeeping, as agreed upon weekly.</p>
+      <h5>PAYMENT TERMS</h5>
+      <p>The Client agrees to pay a rate agreed upon in advance for the services outlined above. Invoices are issued weekly and due within 5 business days.</p>
+      <h5>DURATION AND TERMINATION</h5>
+      <p>This agreement runs week-to-week from the date of signing. Either party may terminate with 7 days written notice.</p>
+      <h5>CONFIDENTIALITY</h5>
+      <p>The Virtual Assistant agrees to keep all client business information private and will not share client data with third parties.</p>
+    `
+  }
+};
+
+const modalOverlay = document.getElementById('modalOverlay');
+const modalEyebrow = document.getElementById('modalEyebrow');
+const modalTitle = document.getElementById('modalTitle');
+const modalBody = document.getElementById('modalBody');
+
+document.querySelectorAll('.template-card').forEach(card => {
+  card.addEventListener('click', () => {
+    const data = templateContent[card.dataset.template];
+    modalEyebrow.textContent = data.eyebrow;
+    modalTitle.textContent = data.title;
+    modalBody.innerHTML = data.html;
+    modalOverlay.classList.add('open');
+  });
+});
+document.getElementById('modalClose').addEventListener('click', () => modalOverlay.classList.remove('open'));
+modalOverlay.addEventListener('click', (e) => { if(e.target === modalOverlay) modalOverlay.classList.remove('open'); });
+document.addEventListener('keydown', (e) => { if(e.key === 'Escape') modalOverlay.classList.remove('open'); });
+
+// mobile nav toggle
+const navToggle = document.getElementById('navToggle');
+const navLinks = document.getElementById('navLinks');
+navToggle.addEventListener('click', () => {
+  const isOpen = navLinks.classList.toggle('open');
+  navToggle.setAttribute('aria-expanded', isOpen);
+});
+navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+  navLinks.classList.remove('open');
+  navToggle.setAttribute('aria-expanded', 'false');
+}));
+
+// filter work samples
+const filterBar = document.getElementById('filterBar');
+const cards = document.querySelectorAll('.sample-card');
+filterBar.addEventListener('click', (e) => {
+  if(!e.target.classList.contains('filter-btn')) return;
+  filterBar.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  e.target.classList.add('active');
+  const f = e.target.dataset.filter;
+  cards.forEach(c => {
+    if(f === 'all' || c.dataset.cat === f){
+      c.classList.remove('hidden');
+    } else {
+      c.classList.add('hidden');
+    }
+  });
+});
+
+// terminal typing animation
+const tasks = [
+  "organize_inbox --client sarah",
+  "schedule_calls --count 2 --reminders on",
+  "design_post --platform instagram",
+  "generate_invoice --amount 40000",
+  "update_bookkeeping --balance auto",
+  "build_itinerary --trip abuja"
+];
+const body = document.getElementById('terminalBody');
+
+function typeLine(text, cb){
+  const line = document.createElement('div');
+  line.className = 'line';
+  const prompt = document.createElement('span');
+  prompt.className = 'prompt';
+  prompt.textContent = '$';
+  line.appendChild(prompt);
+  const textSpan = document.createElement('span');
+  line.appendChild(textSpan);
+  const cursor = document.createElement('span');
+  cursor.className = 'cursor';
+  line.appendChild(cursor);
+  body.appendChild(line);
+
+  let i = 0;
+  function tick(){
+    if(i <= text.length){
+      textSpan.textContent = text.slice(0, i);
+      i++;
+      setTimeout(tick, 28);
+    } else {
+      cursor.remove();
+      const done = document.createElement('span');
+      done.className = 'done';
+      done.textContent = '  ✓ done';
+      line.appendChild(done);
+      setTimeout(cb, 350);
+    }
+  }
+  tick();
+}
+
+function runSequence(idx){
+  if(idx >= tasks.length){
+    setTimeout(() => { body.innerHTML=''; runSequence(0); }, 2200);
+    return;
+  }
+  typeLine(tasks[idx], () => runSequence(idx+1));
+}
+runSequence(0);
+</script>
+
+</body>
+</html>
