@@ -353,6 +353,8 @@ section{padding:105px 0}.section-head{margin-bottom:42px}.section-eyebrow{color:
 @media(max-width:720px){.hero{padding:76px 0 66px;gap:42px}.hero h1{font-size:2.85rem}.terminal:before{font-size:1.45rem;padding:38px 28px 23px}.terminal:after{padding:0 28px 34px}.nav-links{background:var(--bg);border-color:var(--border)}.nav-toggle span{background:var(--text)}.services-grid,.samples-grid,.repurposing-grid,.templates-grid,.evidence-grid{background:transparent;gap:12px}.service-card,.sample-card,.repurposing-card,.template-card,.evidence-card{border:1px solid var(--border)}}
 .contact-linkedin{display:block;width:max-content;margin:18px auto 0;padding-bottom:3px;border-bottom:1px solid #527080;color:#365b6c;font-size:.82rem}
 @media(max-width:720px){body{overflow-x:hidden}.hero{grid-template-columns:1fr}.filter-bar{max-width:100%;margin-right:0}}
+/* ---------- PORTRAIT, WORK GALLERY & TOOLS ---------- */
+.hero-portrait{position:relative;min-height:470px;background:#dcecf2;overflow:hidden}.hero-portrait img{width:100%;height:100%;min-height:470px;display:block;object-fit:cover;object-position:center 23%;filter:saturate(.92)}.hero-portrait:after{content:'PROMISE AYODEJI JACOB\A VIRTUAL ASSISTANT';white-space:pre-line;position:absolute;left:26px;bottom:24px;padding:12px 14px;background:rgba(248,251,253,.9);color:var(--text);font:.65rem/1.6 'DM Sans',sans-serif;letter-spacing:.13em}.work-gallery{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:20px 0 2px}.work-gallery.trio{grid-template-columns:repeat(3,minmax(0,1fr))}.work-gallery figure{margin:0}.work-gallery figcaption{font-size:.7rem;color:var(--muted);margin-top:6px}.work-preview{display:block;width:100%;padding:0;border:1px solid var(--border);background:var(--surface-2);cursor:pointer;overflow:hidden;position:relative}.work-preview img{width:100%;aspect-ratio:16/10;display:block;object-fit:cover;transition:transform .25s ease}.work-preview:hover img,.work-preview:focus-visible img{transform:scale(1.04)}.work-preview:after{content:'TAP TO VIEW';position:absolute;right:0;bottom:0;padding:5px 7px;background:rgba(32,59,75,.88);color:#fff;font:600 .58rem 'DM Sans',sans-serif;letter-spacing:.08em}.tools-section{padding-top:20px}.tools-intro{max-width:620px;margin-bottom:38px;color:var(--muted);font-size:1rem}.tools-marquee{overflow:hidden;border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:22px 0;mask-image:linear-gradient(to right,transparent,black 8%,black 92%,transparent)}.tools-track{display:flex;width:max-content;animation:tools-scroll 28s linear infinite}.tools-marquee:hover .tools-track{animation-play-state:paused}.tool-set{display:flex;gap:16px;padding-right:16px}.tool-card{width:150px;min-height:150px;padding:18px 14px;background:var(--surface);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:12px;flex-shrink:0}.tool-card img{width:58px;height:58px;object-fit:contain}.tool-card span{font-size:.78rem;font-weight:600;text-align:center;color:var(--text)}.tools-note{text-align:center;color:#527080;font-size:.92rem;margin:24px auto 0;max-width:700px}@keyframes tools-scroll{to{transform:translateX(-50%)}}@media(max-width:720px){.hero-portrait{min-height:420px}.hero-portrait img{min-height:420px}.work-gallery,.work-gallery.trio{grid-template-columns:1fr 1fr}.tool-card{width:132px;min-height:132px}.tools-marquee{margin-left:-24px;margin-right:-24px}}
 </style>
 </head>
 <body>
@@ -386,12 +388,8 @@ section{padding:105px 0}.section-head{margin-bottom:42px}.section-eyebrow{color:
     </div>
   </div>
 
-  <div class="terminal">
-    <div class="terminal-bar">
-      <span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span>
-      <span class="terminal-title">weekly_tasks.sh</span>
-    </div>
-    <div class="terminal-body" id="terminalBody"></div>
+  <div class="hero-portrait">
+    <img src="promise-va-headshot.jpeg" alt="Promise Ayodeji Jacob, Virtual Assistant">
   </div>
 </section>
 
@@ -456,6 +454,11 @@ section{padding:105px 0}.section-head{margin-bottom:42px}.section-eyebrow{color:
       <span class="cat mono">Email & Calendar</span>
       <h4>Client Inbox Organization</h4>
       <p>Sorted a cluttered inbox into Client Queries, Coaching Bookings, and Pending Tasks, then scheduled two coaching calls with reminders.</p>
+      <div class="work-gallery">
+        <figure><button class="work-preview" type="button" data-image="before-inbox.png" data-alt="Gmail inbox before organization" aria-label="View inbox before organization"><img src="before-inbox.png" alt="Gmail inbox before organization"></button><figcaption>Before organization</figcaption></figure>
+        <figure><button class="work-preview" type="button" data-image="after-inbox.png" data-alt="Gmail inbox after organization" aria-label="View inbox after organization"><img src="after-inbox.png" alt="Gmail inbox after organization"></button><figcaption>After organization</figcaption></figure>
+        <figure><button class="work-preview" type="button" data-image="Calendar-setup-proof-of-work.png" data-alt="Google Calendar setup for a client productivity call" aria-label="View calendar setup sample"><img src="Calendar-setup-proof-of-work.png" alt="Google Calendar setup for a client productivity call"></button><figcaption>Calendar setup</figcaption></figure>
+      </div>
       <div class="sample-meta"><span class="chip">Gmail</span><span class="chip">Google Calendar</span></div>
     </div>
     <div class="sample-card" data-cat="content">
@@ -472,24 +475,32 @@ section{padding:105px 0}.section-head{margin-bottom:42px}.section-eyebrow{color:
       <span class="cat mono">Social Media</span>
       <h4>Weekly Operations Report</h4>
       <p>Compiled a client-ready report on tasks completed, top-performing content, and next steps for a bakery brand.</p>
+      <div class="work-gallery"><figure><button class="work-preview" type="button" data-image="weekly-report-proof-of-work.png" data-alt="Weekly operations report" aria-label="View research spreadsheet sample"><img src="weekly-report-proof-of-work.png" alt="Weekly Report Update"></button><figcaption>Weekly Operations Update</figcaption></figure></div>
       <div class="sample-meta"><span class="chip">Reporting</span></div>
     </div>
     <div class="sample-card" data-cat="research">
       <span class="cat mono">Research</span>
       <h4>Travel Options Comparison</h4>
       <p>Sourced and compared 3 flight, hotel, and transport packages for a 3-day trip using real, current pricing.</p>
+      <div class="work-gallery"><figure><button class="work-preview" type="button" data-image="Research-proof-of-work.png" data-alt="Travel research comparison spreadsheet" aria-label="View research spreadsheet sample"><img src="Research-proof-of-work.png" alt="Travel research comparison spreadsheet"></button><figcaption>Travel research comparison</figcaption></figure></div>
       <div class="sample-meta"><span class="chip">Google Sheets</span></div>
     </div>
     <div class="sample-card" data-cat="finance">
       <span class="cat mono">Bookkeeping & Invoicing</span>
       <h4>Client CRM + Invoice + Bookkeeping</h4>
       <p>Built a client tracker, issued a professional invoice, and logged income and expenses with a running balance.</p>
+      <div class="work-gallery trio">
+        <figure><button class="work-preview" type="button" data-image="CRM-proof-of-work.png" data-alt="Client CRM tracker spreadsheet" aria-label="View CRM tracker sample"><img src="CRM-proof-of-work.png" alt="Client CRM tracker spreadsheet"></button><figcaption>Client CRM</figcaption></figure>
+        <figure><button class="work-preview" type="button" data-image="Invoice-proof-of-work.png" data-alt="Professional client invoice" aria-label="View invoice sample"><img src="Invoice-proof-of-work.png" alt="Professional client invoice"></button><figcaption>Invoice</figcaption></figure>
+        <figure><button class="work-preview" type="button" data-image="Bookeeping-proof-of-work.png" data-alt="Bookkeeping income and expense tracker" aria-label="View bookkeeping sample"><img src="Bookeeping-proof-of-work.png" alt="Bookkeeping income and expense tracker"></button><figcaption>Bookkeeping tracker</figcaption></figure>
+      </div>
       <div class="sample-meta"><span class="chip">Google Sheets</span><span class="chip">Invoicing</span></div>
     </div>
     <div class="sample-card" data-cat="ops">
       <span class="cat mono">Travel Planning</span>
       <h4>One-Page Client Itinerary</h4>
       <p>Turned raw trip research into a clean, one-page itinerary covering flights, hotel, transport, and reminders.</p>
+      <div class="work-gallery"><figure><button class="work-preview" type="button" data-image="Travel-Planning-proof-of-work.png" data-alt="One-page client travel itinerary" aria-label="View travel itinerary sample"><img src="Travel-Planning-proof-of-work.png" alt="One-page client travel itinerary"></button><figcaption>Client travel itinerary</figcaption></figure></div>
       <div class="sample-meta"><span class="chip">Client Documentation</span></div>
     </div>
   </div>
@@ -510,20 +521,6 @@ section{padding:105px 0}.section-head{margin-bottom:42px}.section-eyebrow{color:
       <div class="stat-block"><div class="stat-value">38</div><span class="stat-label">Top Post Comments</span></div>
     </div>
     <p class="report-insight"><strong>INSIGHT //</strong> Reel-format content outperformed static photo posts this week.</p>
-  </div>
-  <div class="evidence-grid">
-    <figure class="evidence-card">
-      <button class="evidence-preview" type="button" data-image="before-inbox.png" data-alt="Gmail inbox before organization, showing an unstructured inbox view" aria-label="View full before inbox image">
-        <img src="before-inbox.png" alt="Gmail inbox before organization, showing an unstructured inbox view">
-      </button>
-      <figcaption class="evidence-caption"><strong>Before</strong>Inbox before organization.</figcaption>
-    </figure>
-    <figure class="evidence-card">
-      <button class="evidence-preview" type="button" data-image="after-inbox.png" data-alt="Gmail inbox after organization, showing labels for client queries, coaching bookings, and pending tasks" aria-label="View full after inbox image">
-        <img src="after-inbox.png" alt="Gmail inbox after organization, showing labels for client queries, coaching bookings, and pending tasks">
-      </button>
-      <figcaption class="evidence-caption"><strong>After</strong>Inbox organized with a clear label system.</figcaption>
-    </figure>
   </div>
 </section>
 
@@ -609,6 +606,25 @@ section{padding:105px 0}.section-head{margin-bottom:42px}.section-eyebrow{color:
     <img id="previewImage" src="" alt="">
   </div>
 </div>
+
+<section id="tools" class="container tools-section">
+  <div class="section-head">
+    <div class="section-eyebrow">// TOOLS I USE</div>
+    <h2>Reliable support, powered by the right tools.</h2>
+  </div>
+  <p class="tools-intro">From a clear inbox to smoother systems, I use trusted tools to keep your work organized, visible, and moving forward, so you can spend more time leading your business.</p>
+  <div class="tools-marquee" aria-label="Tools Promise uses">
+    <div class="tools-track">
+      <div class="tool-set">
+        <div class="tool-card"><img src="gmail-2026-256px.png" alt=""><span>Gmail</span></div><div class="tool-card"><img src="google-docs-2026-256px.png" alt=""><span>Google Docs</span></div><div class="tool-card"><img src="google-calendar-2026-256px.png" alt=""><span>Google Calendar</span></div><div class="tool-card"><img src="zapier-256px.png" alt=""><span>Zapier</span></div><div class="tool-card"><img src="google-sheets-2026-256px.png" alt=""><span>Google Sheets</span></div><div class="tool-card"><img src="meta-256px.png" alt=""><span>Meta Business Suite</span></div><div class="tool-card"><img src="openai-chatgpt-256px.png" alt=""><span>ChatGPT</span></div>
+      </div>
+      <div class="tool-set" aria-hidden="true">
+        <div class="tool-card"><img src="gmail-2026-256px.png" alt=""><span>Gmail</span></div><div class="tool-card"><img src="google-calendar-2026-256px.png" alt=""><span>Google Calendar</span></div><div class="tool-card"><img src="zapier-256px.png" alt=""><span>Zapier</span></div><div class="tool-card"><img src="google-sheets-2026-256px.png" alt=""><span>Google Sheets</span></div><div class="tool-card"><img src="meta-256px.png" alt=""><span>Meta Business Suite</span></div><div class="tool-card"><img src="openai-chatgpt-256px.png" alt=""><span>ChatGPT</span></div>
+      </div>
+    </div>
+  </div>
+  <p class="tools-note">I’m always ready to learn the tools that fit your workflow bestmaking your work easier, faster, and more dependable.</p>
+</section>
 
 <section id="contact" class="container">
   <div class="contact">
@@ -704,7 +720,7 @@ modalOverlay.addEventListener('click', (e) => { if(e.target === modalOverlay) mo
 const imageOverlay = document.getElementById('imageOverlay');
 const previewImage = document.getElementById('previewImage');
 const imageClose = document.getElementById('imageClose');
-document.querySelectorAll('.sample-preview, .evidence-preview').forEach(preview => {
+document.querySelectorAll('.sample-preview, .evidence-preview, .work-preview').forEach(preview => {
   preview.addEventListener('click', () => {
     previewImage.src = preview.dataset.image;
     previewImage.alt = preview.dataset.alt;
